@@ -2,7 +2,7 @@ package com.kauzganga.chindali.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Word(val iD : Int,
+data class Word(val ID : Int,
                 val word : String,
                 val meaning_one : String,
                 val ndali_sentence_one : String,

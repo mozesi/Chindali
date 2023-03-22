@@ -16,7 +16,9 @@ class WordsViewModel () : ViewModel(){
     init {
         viewModelScope.launch {
             val dataa = ChindaliApi.retrofitService.getWords()
-          //  Log.i("ERROR", dataa.toString())
+             Log.i("ERROR", dataa.toString())
+            state.value = dataa
+
         }
 
     }

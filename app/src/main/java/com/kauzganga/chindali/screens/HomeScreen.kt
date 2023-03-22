@@ -23,7 +23,7 @@ fun HomeScreen () {
 
     val viewModel: WordsViewModel = viewModel()
     LazyColumn(contentPadding = PaddingValues(vertical =8.dp, horizontal = 8.dp)){
-        items(dummyWords){
+        items(viewModel.state.value){
             word ->
             WordItem(word = word)
         }

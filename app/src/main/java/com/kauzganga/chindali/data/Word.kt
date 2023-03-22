@@ -1,15 +1,19 @@
 package com.kauzganga.chindali.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Word(val ID : Int,
-                val word : String,
-                val meaning_one : String,
-                val ndali_sentence_one : String,
-                val english_sentence_one: String,
-                val meaning_two : String,
-                val ndali_sentence_two : String,
-                val english_sentence_two : String
+@Entity(tableName = "words")
+data class Word(@PrimaryKey val ID : Int,
+                @ColumnInfo(name = "word") val word : String,
+                @ColumnInfo(name = "meaning_one") val meaning_one : String,
+                @ColumnInfo(name = "ndali_sentence_one") val ndali_sentence_one : String,
+                @ColumnInfo(name = "english_sentence_one") val english_sentence_one: String,
+                @ColumnInfo(name = "meaning_two") val meaning_two : String,
+                @ColumnInfo(name = "ndali_sentence_two") val ndali_sentence_two : String,
+                @ColumnInfo(name = "english_sentence_two") val english_sentence_two : String
                 )
 
 val dummyWords = listOf(

@@ -15,4 +15,7 @@ interface ChindaliDao {
 
     @Query("SELECT * FROM words")
     fun getWords(): Flow<List<Word>>
+
+    @Query("SELECT * FROM words WHERE  word LIKE :newText || '%' OR meaning_one LIKE :newText")
+    suspend fun search(newText: String): List<Word>
 }

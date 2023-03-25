@@ -9,10 +9,11 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.material.TextField
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kauzganga.chindali.data.Word
@@ -24,6 +25,18 @@ fun HomeScreen () {
 
     val viewModel: WordsViewModel = viewModel()
     val words =  viewModel.words.collectAsState(initial = emptyList())
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+
+    TextField(
+        value = text,
+        onValueChange = { newText ->
+            text = newText
+            viewModel.searchWord(newText.text)
+
+        }
+
+    )
+
     LazyColumn(contentPadding = PaddingValues(vertical =8.dp, horizontal = 8.dp)){
         items(words.value){
             word ->
@@ -31,6 +44,8 @@ fun HomeScreen () {
         }
     }
 }
+
+
 
 
 @Composable

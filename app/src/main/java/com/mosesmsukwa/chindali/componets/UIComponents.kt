@@ -1,5 +1,6 @@
 package com.mosesmsukwa.chindali.componets
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +30,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,13 +48,17 @@ import com.mosesmsukwa.chindali.words.Word
 
 
 @Composable
-fun WelcomeComponent(modifier: Modifier = Modifier) {
+fun WelcomeComponent(modifier: Modifier = Modifier, onShow:()->Unit, name: String) {
     Column(modifier = modifier) {
+
         Text(text = "Welcome to Chindali", style = MaterialTheme.typography.titleMedium)
         Text(
-            text = "Explore and enjoy learning chindali.",
+            text = "Explore and enjoy learning chindali $name",
             style = MaterialTheme.typography.bodySmall
         )
+        Button(onClick = onShow) {
+            Text(text = "Show")
+        }
     }
 }
 
@@ -115,7 +126,7 @@ fun WordTypeSection(modifier: Modifier = Modifier, names: List<String>) {
 }
 
 @Composable
-fun WordCard(word: Word) {
+fun WordCard(modifier: Modifier = Modifier, checked : Boolean, word: Word, onChecked : (Boolean)-> Unit) {
     Card(modifier = Modifier.padding(10.dp)) {
         Column(
             modifier = Modifier
@@ -124,8 +135,15 @@ fun WordCard(word: Word) {
         ) {
             Text(text = word.word)
             Text(text = word.meaning)
+            Checkbox(checked = checked, onCheckedChange = onChecked )
         }
     }
+}
+
+@Composable
+fun WordCard(modifier: Modifier =Modifier, word: Word) {
+    var nChecked by rememberSaveable{ mutableStateOf(false) }
+    WordCard(word = word, checked = nChecked , onChecked = { newValue -> nChecked = newValue})
 }
 
 /**

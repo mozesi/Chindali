@@ -6,8 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.mosesmsukwa.chindali.componets.Home
+import com.mosesmsukwa.chindali.componets.HomeScreen
+import com.mosesmsukwa.chindali.componets.LandingScreen
 import com.mosesmsukwa.chindali.ui.theme.ChindaliTheme
 
 
@@ -21,7 +26,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   Home()
+                    var goToLandingScreen by rememberSaveable { mutableStateOf(false) }
+
+                    if (goToLandingScreen) {
+                        HomeScreen()
+                    } else {
+                        LandingScreen(proceedToHomeScreen = { goToLandingScreen = true })
+                    }
                 }
             }
         }
